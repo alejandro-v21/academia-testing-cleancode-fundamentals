@@ -5,6 +5,8 @@ description: Reglas de arquitectura para Web APIs, manejo de parámetros y elimi
 
 # Arquitectura y Diseño de Parámetros
 
+> ⚠️ **NOTA PARA EL AGENTE:** Los bloques de código en esta skill son **SOLO ILUSTRATIVOS**. Sirven para explicar el concepto. **NUNCA copies los nombres de clases, métodos o variables de estos ejemplos al proyecto real.** Siempre adaptá el patrón al código concreto que estás analizando o generando.
+
 ## 1. Web APIs y DTOs
 - **PROHIBIDO devolver Entidades de dominio directamente en los controladores.**
 - Siempre se deben mapear las entidades y devolver DTOs (Data Transfer Objects).

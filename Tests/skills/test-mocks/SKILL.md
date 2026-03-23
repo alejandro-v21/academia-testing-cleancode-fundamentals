@@ -5,6 +5,8 @@ description: Reglas para el uso de mocks en pruebas. NSubstitute es la única li
 
 # Reglas de Uso de Mocks
 
+> ⚠️ **NOTA PARA EL AGENTE:** Los bloques de código en esta skill son **SOLO ILUSTRATIVOS**. Sirven para explicar el concepto. **NUNCA copies los nombres de clases, métodos o variables de estos ejemplos al proyecto real.** Siempre adaptá el patrón al código concreto que estás analizando o generando.
+
 ## 1. Librería Permitida
 - **ÚNICA librería autorizada: `NSubstitute`.**
 - **`Moq` está TERMINANTEMENTE PROHIBIDO.** Sin excepciones.

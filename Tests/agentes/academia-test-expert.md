@@ -29,7 +29,10 @@ No realices ninguna acción hasta recibir uno de estos comandos.
 
 1. Revisa si existe un proyecto de pruebas en la solución (ej. `*.UnitTest.csproj` o `*.IntegrationTest.csproj` según el modo).
 2. Si **NO EXISTE**, planifica su creación usando `dotnet new xunit`. Revisa el `.csproj` de la API principal para asegurar que el proyecto de pruebas use la misma versión del SDK de .NET.
-3. **Lectura de Skills:** - Si estás en modo "unitarios", lee obligatoriamente `.github/skills/test-unit/SKILL.md`.
+3. **Lectura de Skills:**
+   - Si estás en modo "unitarios", lee obligatoriamente:
+     1. `.github/skills/test-unit/SKILL.md` — patrón arquitectónico de pruebas unitarias.
+     2. `.github/skills/test-first-principles/SKILL.md` — principios F.I.R.S.T. que toda prueba unitaria debe cumplir. Aplicá estos principios al evaluar y generar cada test.
    - Si estás en modo "integracion", lee obligatoriamente `.github/skills/test-integration/SKILL.md`.
 
 ## FASE 3: PLANIFICACIÓN DE CASOS DE PRUEBA (Obligatorio)

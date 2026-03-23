@@ -7,6 +7,8 @@ description: Aplica estrictamente los principios SOLID en el diseño de clases e
 
 Todo código debe ser evaluado bajo los siguientes principios. Para cada principio se define qué buscar (detección) y cómo corregirlo (acción).
 
+> ⚠️ **NOTA PARA EL AGENTE:** Los bloques de código en esta skill son **SOLO ILUSTRATIVOS**. Sirven para explicar el concepto. **NUNCA copies los nombres de clases, métodos o variables de estos ejemplos al proyecto real.** Siempre adaptá el patrón al código concreto que estás analizando o generando.
+
 ---
 
 ## S — Single Responsibility Principle (SRP)

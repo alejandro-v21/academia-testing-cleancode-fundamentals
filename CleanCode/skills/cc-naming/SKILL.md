@@ -5,6 +5,8 @@ description: Aplica convenciones de nombres, notaciones y estilos de formato All
 
 # Reglas de Nombres y Formato (Clean Code)
 
+> ⚠️ **NOTA PARA EL AGENTE:** Los bloques de código en esta skill son **SOLO ILUSTRATIVOS**. Sirven para explicar el concepto. **NUNCA copies los nombres de clases, métodos o variables de estos ejemplos al proyecto real.** Siempre adaptá el patrón al código concreto que estás analizando o generando.
+
 ## 1. Convenciones de Nombres
 - **PascalCase:** Clases, Interfaces (con prefijo I), Structs, Delegates, Enums, Métodos, Propiedades públicas, Eventos, Namespaces, Constantes, Parámetros de Record Types.
 - **camelCase:** Variables locales, Parámetros de métodos, Parámetros de constructores primarios.

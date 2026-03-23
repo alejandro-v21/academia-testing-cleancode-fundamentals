@@ -57,6 +57,19 @@ public class {Feature}DomainRequeriments
 
 ---
 
+## AVISO IMPORTANTE — ADAPTACIÓN AL PROYECTO
+
+Todo el código mostrado en estas instrucciones son **EJEMPLOS ORIENTATIVOS**, no plantillas rígidas.
+
+Antes de generar cualquier código, debés:
+1. **Inspeccionar el proyecto real** — cómo se llaman sus entidades, repositorios, unit of work, enums, etc.
+2. **Adaptar la nomenclatura** — si el proyecto usa `_context` en lugar de `_unitOfWork`, usá eso.
+3. **Adaptar los patrones de consulta** — si no existe `AsQueryable()`, usá el patrón que el proyecto ya usa.
+4. **Adaptar la obtención del usuario** — `ObtenerUsuarios.admin` es un ejemplo. Buscá cómo el proyecto obtiene el usuario actual y replicá ese patrón.
+5. **Adaptar los mensajes de error** — si el proyecto no tiene una clase `Mensaje`, usá strings descriptivos o el patrón que el proyecto ya usa.
+
+**NUNCA copies el código de los ejemplos literalmente sin verificar que encaje con el proyecto.**
+
 ## FLUJO AUTOMÁTICO
 
 ### FASE 1 — Leer los services

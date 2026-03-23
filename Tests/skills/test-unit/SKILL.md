@@ -5,6 +5,8 @@ description: Reglas arquitectónicas para crear Pruebas Unitarias usando xUnit, 
 
 # Reglas Estrictas de Pruebas Unitarias
 
+> ⚠️ **NOTA PARA EL AGENTE:** Los bloques de código en esta skill son **SOLO ILUSTRATIVOS**. Sirven para explicar el concepto. **NUNCA copies los nombres de clases, métodos o variables de estos ejemplos al proyecto real.** Siempre adaptá el patrón al código concreto que estás analizando o generando.
+
 ## 1. Stack y Convenciones Generales
 - **Frameworks:** Usar `xunit`, `FluentAssertions` y, cuando sea necesario, `NSubstitute`.
 - **Estructura:** Cada feature debe tener su subcarpeta en `DataTest/{Feature}/`.

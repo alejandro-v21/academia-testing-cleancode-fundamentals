@@ -7,6 +7,8 @@ description: Estándares para Pruebas de Integración de Web APIs usando WebAppl
 
 Los tests de integración validan el flujo completo de un endpoint: desde la request HTTP hasta la respuesta, pasando por controlador, servicios, repositorios y base de datos. **NUNCA** se conectan a bases de datos de producción ni a entornos externos reales.
 
+> ⚠️ **NOTA PARA EL AGENTE:** Los bloques de código en esta skill son **SOLO ILUSTRATIVOS**. Sirven para explicar el concepto. **NUNCA copies los nombres de clases, métodos o variables de estos ejemplos al proyecto real.** Siempre adaptá el patrón al código concreto que estás analizando o generando.
+
 ---
 
 ## 1. Configuración del Proyecto y GlobalUsings

@@ -5,6 +5,8 @@ description: Reglas para evaluar y reducir la complejidad ciclomática y cogniti
 
 # Complejidad Ciclomática y Cognitiva
 
+> ⚠️ **NOTA PARA EL AGENTE:** Los bloques de código en esta skill son **SOLO ILUSTRATIVOS**. Sirven para explicar el concepto. **NUNCA copies los nombres de clases, métodos o variables de estos ejemplos al proyecto real.** Siempre adaptá el patrón al código concreto que estás analizando o generando.
+
 ## 1. Complejidad Ciclomática
 - **Cálculo:** `if`, `else if`, `for`, `while`, `do-while`, `case`, `catch`, `&&`, `||`, `? :` suman +1.
 - **Límites:**
