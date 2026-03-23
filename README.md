@@ -98,6 +98,82 @@ Controller → ApplicationService → DomainService → DomainRequirements (POCO
 
 ## Uso en un Proyecto
 
-1. Copiar las carpetas de skills que se encuentran en `CleanCode/skills/` y `Tests/skills/` a `.github/skills/` en el proyecto destino.
-2. Copiar los agentes a `.github/agents/` (o donde configure el cliente de IA).
-3. Invocar los agentes con los comandos definidos arriba.
+### 1. Instalar GitHub CLI y la extensión de Copilot
+
+```bash
+# 1. Instalar GitHub CLI (si no lo tenés)
+# Windows (winget)
+winget install --id GitHub.cli
+
+# macOS
+brew install gh
+
+# 2. Autenticarse
+gh auth login
+
+# 3. Instalar la extensión de Copilot
+gh extension install github/gh-copilot
+```
+
+> Verificá que funcione con: `gh copilot --version`
+
+---
+
+### 2. Copiar skills y agentes al proyecto destino
+
+Desde la raíz del **proyecto donde vas a usar los agentes**, ejecutá:
+
+```bash
+# Crear las carpetas necesarias
+mkdir -p .github/skills
+mkdir -p .github/agents
+
+# Copiar skills de Clean Code
+cp -r /ruta/a/este/repo/CleanCode/skills/* .github/skills/
+
+# Copiar skills de Testing
+cp -r /ruta/a/este/repo/Tests/skills/* .github/skills/
+
+# Copiar los agentes
+cp /ruta/a/este/repo/CleanCode/agentes/academia-clean-code-expert.md .github/agents/
+cp /ruta/a/este/repo/DomainRequirement/agentes/academia-domain-requirement-builder.md .github/agents/
+cp /ruta/a/este/repo/Tests/agentes/academia-test-expert.md .github/agents/
+```
+
+La estructura resultante en tu proyecto debe quedar así:
+
+```
+tu-proyecto/
+└── .github/
+    ├── agents/
+    │   ├── academia-clean-code-expert.md
+    │   ├── academia-domain-requirement-builder.md
+    │   └── academia-test-expert.md
+    └── skills/
+        ├── cc-architecture/SKILL.md
+        ├── cc-complexity/SKILL.md
+        ├── cc-naming/SKILL.md
+        ├── cc-solid/SKILL.md
+        ├── test-first-principles/SKILL.md
+        ├── test-integration/SKILL.md
+        ├── test-mocks/SKILL.md
+        └── test-unit/SKILL.md
+```
+
+---
+
+### 3. Invocar los agentes en Copilot Chat (VS Code)
+
+Los agentes aparecen automáticamente en GitHub Copilot Chat una vez que los archivos `.md` están en `.github/agents/`. Para invocarlos:
+
+1. Abrí Copilot Chat en VS Code (`Ctrl+Alt+I` / `Cmd+Alt+I`)
+2. Seleccioná el agente desde el selector de modo (ícono de agente / `@`)
+3. Enviá el comando correspondiente:
+
+| Agente | Comando de activación |
+|---|---|
+| `academia-clean-code-expert` | `analizar feature NombreDelArchivo.cs` |
+| `domain-requirements-builder` | *(se activa automáticamente al seleccionarlo)* |
+| `academia-test-expert` | `unitarios` o `integracion` |
+
+> **Requisito:** Tener habilitado **GitHub Copilot** con acceso a **Agent Mode** en VS Code. Versión mínima recomendada de la extensión: `v0.22+`.
