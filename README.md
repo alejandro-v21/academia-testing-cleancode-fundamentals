@@ -98,6 +98,6 @@ Controller → ApplicationService → DomainService → DomainRequirements (POCO
 
 ## Uso en un Proyecto
 
-1. Copiar las carpetas `CleanCode/skills/` y `Tests/skills/` a `.github/skills/` en el proyecto destino.
+1. Copiar las carpetas de skills que se encuentran en `CleanCode/skills/` y `Tests/skills/` a `.github/skills/` en el proyecto destino.
 2. Copiar los agentes a `.github/agents/` (o donde configure el cliente de IA).
 3. Invocar los agentes con los comandos definidos arriba.
