@@ -15,6 +15,11 @@ Framework de conocimiento para aplicar **Clean Code**, **principios SOLID** y **
 │       ├── cc-naming/
 │       └── cc-solid/
 │
+├── CoberturaTests/
+│   ├── agentes/          # Agente generador de reportes de cobertura
+│   └── skills/
+│       └── test-coverage/
+│
 ├── DomainRequirement/
 │   └── agentes/          # Agente generador de DomainRequirements
 │
@@ -50,6 +55,7 @@ Framework de conocimiento para aplicar **Clean Code**, **principios SOLID** y **
 | `test-first-principles` | Principios F.I.R.S.T. con mapeo al patrón arquitectónico del proyecto |
 | `test-integration` | WebApplicationFactory, SQLite en memoria, IClassFixture, estructura de carpetas |
 | `test-mocks` | NSubstitute como única librería permitida, Fake vs Mock, prohibiciones absolutas |
+| `test-coverage` | Coverlet + ReportGenerator: instalación, comandos, MergeWith para múltiples suites, reporte HTML |
 
 ---
 
@@ -77,6 +83,15 @@ Genera suites completas de pruebas unitarias o de integración respetando las sk
 **Comandos:** `unitarios` o `integracion`
 
 Fases: recopilación de contexto → verificación del entorno → plan de casos → generación autónoma.
+
+---
+
+### `coverage-expert`
+Descubre los proyectos de prueba existentes, instala Coverlet si falta, ejecuta la cobertura y genera el reporte HTML con ReportGenerator.
+
+**Comando:** `haz la cobertura`
+
+Fases: descubrimiento de tests + SUT → validación de paquetes → plan con comandos exactos + aprobación → ejecución autónoma.
 
 ---
 
@@ -134,10 +149,14 @@ cp -r /ruta/a/este/repo/CleanCode/skills/* .github/skills/
 # Copiar skills de Testing
 cp -r /ruta/a/este/repo/Tests/skills/* .github/skills/
 
+# Copiar skill de Cobertura
+cp -r /ruta/a/este/repo/CoberturaTests/skills/* .github/skills/
+
 # Copiar los agentes
 cp /ruta/a/este/repo/CleanCode/agentes/academia-clean-code-expert.md .github/agents/
 cp /ruta/a/este/repo/DomainRequirement/agentes/academia-domain-requirement-builder.md .github/agents/
 cp /ruta/a/este/repo/Tests/agentes/academia-test-expert.md .github/agents/
+cp /ruta/a/este/repo/CoberturaTests/agentes/academia-coverage-expert.md .github/agents/
 ```
 
 La estructura resultante en tu proyecto debe quedar así:
@@ -148,7 +167,8 @@ tu-proyecto/
     ├── agents/
     │   ├── academia-clean-code-expert.md
     │   ├── academia-domain-requirement-builder.md
-    │   └── academia-test-expert.md
+    │   ├── academia-test-expert.md
+    │   └── academia-coverage-expert.md
     └── skills/
         ├── cc-architecture/SKILL.md
         ├── cc-complexity/SKILL.md
@@ -157,7 +177,8 @@ tu-proyecto/
         ├── test-first-principles/SKILL.md
         ├── test-integration/SKILL.md
         ├── test-mocks/SKILL.md
-        └── test-unit/SKILL.md
+        ├── test-unit/SKILL.md
+        └── test-coverage/SKILL.md
 ```
 
 ---
@@ -175,5 +196,6 @@ Los agentes aparecen automáticamente en GitHub Copilot Chat una vez que los arc
 | `academia-clean-code-expert` | `analizar feature NombreDelArchivo.cs` |
 | `domain-requirements-builder` | *(se activa automáticamente al seleccionarlo)* |
 | `academia-test-expert` | `unitarios` o `integracion` |
+| `coverage-expert` | `haz la cobertura` |
 
 > **Requisito:** Tener habilitado **GitHub Copilot** con acceso a **Agent Mode** en VS Code. Versión mínima recomendada de la extensión: `v0.22+`.
