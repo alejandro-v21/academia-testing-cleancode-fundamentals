@@ -29,9 +29,28 @@ Se activa cuando el usuario dice exactamente: **"haz la cobertura"**.
 
 ### FASE 1: DESCUBRIMIENTO Y MAPEO (Automático)
 
-1. **Búsqueda de Pruebas:** Usa `search` para encontrar archivos `*Test.cs` en la solución.
-2. **Identificación del SUT:** Analizá los tests para identificar qué clases `*DomainService` y `*DomainRequirement` están siendo testeadas y sus métodos públicos.
-3. **Validación de Dependencias:** Revisá el `.csproj` del proyecto de tests unitarios para verificar si `coverlet.collector` está instalado.
+1. **Búsqueda del proyecto principal:** Localizá el `.csproj` del proyecto principal (no el de tests). Determiná el **nombre del assembly**:
+   - Si tiene `<AssemblyName>` en el `.csproj`, ese es el nombre.
+   - Si no, el nombre del assembly = nombre del archivo `.csproj` sin extensión.
+
+2. **Búsqueda de Pruebas:** Usá `search` para encontrar archivos `*Test.cs` en la solución.
+
+3. **Identificación del SUT:** Analizá los tests para identificar qué clases de dominio están siendo testeadas. Buscá clases que terminen en:
+   - `DomainService` o `DominioService`
+   - `DomainRequirement` o `DominioRequirement`
+   Listá cada clase encontrada con sus métodos públicos.
+
+4. **Detección de namespaces a excluir:** Inspeccioná el proyecto principal y encontrá los namespaces/carpetas reales para cada categoría. Los nombres pueden variar (inglés/español, singular/plural):
+   - **Controllers:** buscá clases que hereden de `ControllerBase` o `Controller` → anotá su namespace
+   - **DTOs:** buscá clases que terminen en `Dto`, `DTO`, `Request`, `Response`, `ViewModel` → anotá su namespace/carpeta
+   - **Maps/Profiles:** buscá carpetas `Maps`, `Mapeos`, `Mappings`, `Profiles` → anotá el namespace
+   - **Infrastructure/Data:** buscá carpetas `Infrastructure`, `Infraestructura`, `Data`, `Persistence`, `DataBase` → anotá el namespace
+   
+   Si alguna categoría no existe, no la incluyas en el Exclude.
+
+5. **Validación de Dependencias:** Revisá el `.csproj` del proyecto de tests unitarios para verificar si `coverlet.collector` está instalado.
+
+6. **Detección de `coverlet.runsettings` existente:** Si existe, leelo. Verificá si el `<Include>` apunta al assembly correcto (igual al nombre detectado en el paso 1). Si está incorrecto, marcalo para sobreescribir.
 
 ### FASE 2: LECTURA DE SKILLS
 
@@ -41,17 +60,20 @@ Se activa cuando el usuario dice exactamente: **"haz la cobertura"**.
 
 Antes de ejecutar cualquier comando, **DETENTE** y mostrá en el chat:
 
-1. **Clases y métodos a medir:** Lista exacta de clases `*DomainService` y `*DomainRequirement` encontradas, con sus métodos públicos.
-2. **Archivos a crear/modificar:** Indicar que se creará `coverlet.runsettings` en el proyecto de tests.
-3. **Comandos exactos:** Los comandos completos ya adaptados con paths y nombres reales del proyecto.
-4. **Aprobación:** Preguntá *"¿Estás de acuerdo con que proceda?"* y **no ejecutes nada hasta recibir confirmación.**
+1. **Assembly principal detectado:** Nombre exacto del assembly del proyecto principal.
+2. **Clases y métodos a medir:** Lista de clases `*DomainService`/`*DominioService` y `*DomainRequirement` encontradas con sus métodos públicos.
+3. **Namespaces a excluir:** Controllers, DTOs, Maps, Infrastructure detectados.
+4. **Contenido exacto del `coverlet.runsettings`** que se va a crear (con `<Include>` y `<Exclude>` ya resueltos con los valores reales).
+5. **Estado del `coverlet.runsettings` existente:** Si existía uno previo, indicar si se va a sobreescribir y por qué.
+6. **Comandos exactos** adaptados con paths y nombres reales.
+7. **Aprobación:** Preguntá *"¿Estás de acuerdo con que proceda?"* y **no ejecutes nada hasta recibir confirmación.**
 
 ### FASE 4: EJECUCIÓN AUTÓNOMA
 
 Una vez el usuario apruebe:
 
-1. Instalá `coverlet.collector` si faltaba.
-2. Creá o sobreescribí el archivo `coverlet.runsettings` en el proyecto de tests unitarios con el filtro `<Include>` correcto (según SKILL.md Sección 2).
-3. Ejecutá el comando `dotnet test` con `--settings` apuntando al `coverlet.runsettings`.
-4. Generá el reporte HTML con `reportgenerator`.
-5. Mostrá en el chat: el resumen de cobertura de la consola y la ruta del `index.html` generado.
+1. Instalá `coverlet.collector` en el proyecto de tests si faltaba.
+2. Creá o sobreescribí `coverlet.runsettings` en el proyecto de tests con el `<Include>[AssemblyPrincipal]*</Include>` y los `<Exclude>` detectados (Sección 2 del SKILL.md).
+3. Ejecutá `dotnet test` con `--collect:"XPlat Code Coverage"` y `--settings` apuntando al runsettings (Sección 4 del SKILL.md).
+4. Generá el reporte HTML con `reportgenerator` usando glob `**/coverage.cobertura.xml` (Sección 5 del SKILL.md).
+5. Mostrá en el chat: resumen de cobertura y ruta del `index.html` generado.

@@ -198,4 +198,88 @@ Los agentes aparecen automáticamente en GitHub Copilot Chat una vez que los arc
 | `academia-test-expert` | `unitarios` o `integracion` |
 | `coverage-expert` | `haz la cobertura` |
 
-> **Requisito:** Tener habilitado **GitHub Copilot** con acceso a **Agent Mode** en VS Code. Versión mínima recomendada de la extensión: `v0.22+`.
+---
+
+## Guía Rápida — Cobertura Manual de una API .NET
+
+> Esta guía es para cuando querés configurar la cobertura **vos mismo**, sin usar el agente. Para la versión automatizada usá el agente `coverage-expert`.
+> 
+> Referencia completa: [Cobertura con Coverlet + ReportGenerator](https://gist.github.com/selvinmedina/80ffcce714a8713e4e438f6522005889)
+
+### Paso 1 — Instalar paquetes en el proyecto de tests unitarios
+
+```bash
+dotnet add TuProyecto.UnitTest/TuProyecto.UnitTest.csproj package coverlet.collector
+dotnet tool install -g dotnet-reportgenerator-globaltool
+```
+
+### Paso 2 — Crear `coverlet.runsettings` en el proyecto de tests
+
+Creá el archivo `TuProyecto.UnitTest/coverlet.runsettings` con este contenido y **reemplazá los valores con los nombres reales de tu proyecto:**
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat Code Coverage">
+        <Configuration>
+          <Format>cobertura</Format>
+          <!-- Reemplazá con el nombre real del assembly de tu API (nombre del .csproj sin extensión) -->
+          <Include>[TuAssemblyPrincipal]*</Include>
+          <!-- Excluí lo que no querés medir. Ajustá los nombres según tu proyecto -->
+          <Exclude>
+            [TuAssemblyPrincipal]*Controllers*
+            [TuAssemblyPrincipal]*Dtos*
+            [TuAssemblyPrincipal]*Maps*
+            [TuAssemblyPrincipal]*Infrastructure*
+          </Exclude>
+          <ExcludeByAttribute>ExcludeFromCodeCoverage</ExcludeByAttribute>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>
+```
+
+> Los nombres en `<Exclude>` varían por proyecto: pueden estar en español (`Controladores`, `Infraestructura`), en singular, etc. Inspeccioná los namespaces reales de tu solución.
+
+### Paso 3 — Ejecutar los tests con cobertura
+
+Desde la raíz de la solución:
+
+```bash
+dotnet test ./TuProyecto.UnitTest \
+  --collect:"XPlat Code Coverage" \
+  --settings ./TuProyecto.UnitTest/coverlet.runsettings \
+  --results-directory ./TuProyecto.UnitTest/TestResults
+```
+
+El archivo `coverage.cobertura.xml` se genera en `TuProyecto.UnitTest/TestResults/[guid]/`.
+
+### Paso 4 — Generar el reporte HTML
+
+```bash
+reportgenerator \
+  "-reports:./TuProyecto.UnitTest/TestResults/**/coverage.cobertura.xml" \
+  "-targetdir:./TuProyecto.UnitTest/CoverageReport" \
+  "-reporttypes:Html"
+```
+
+Abrí `TuProyecto.UnitTest/CoverageReport/index.html` para ver el reporte visual.
+
+---
+
+### Opcional — Excluir clases específicas del código
+
+```csharp
+[ExcludeFromCodeCoverage]
+public class ClaseQueNoQuieroMedir { }
+```
+
+---
+
+> **¿Por qué `--collect` y no `coverlet.msbuild`?**
+> El modo `--collect:"XPlat Code Coverage"` es el estándar recomendado y funciona junto con el `coverlet.runsettings`. El modo `coverlet.msbuild` usa parámetros inline que pueden fallar con comas en PowerShell/Windows.
+
+
