@@ -42,7 +42,7 @@ Se activa cuando el usuario dice exactamente: **"haz la cobertura"**.
 
 4. **Detección de namespaces a excluir:** Inspeccioná el proyecto principal y encontrá los namespaces/carpetas reales para cada categoría. Los nombres pueden variar (inglés/español, singular/plural):
    - **Controllers:** buscá clases que hereden de `ControllerBase` o `Controller` → anotá su namespace
-   - **DTOs:** buscá clases que terminen en `Dto`, `DTO`, `Request`, `Response`, `ViewModel` → anotá su namespace/carpeta
+   - **DTOs:** buscá clases que terminen en `Dto`, `DTO`, `Request`, `Response`, `ViewModel` → anotá su namespace/carpeta. **Nota:** el runsettings siempre incluye exclusiones por nombre de clase como fallback (`*.*Dto`, `*.*Request`, etc.), así que aunque no se detecte el namespace, esas clases quedan excluidas igualmente.
    - **Maps/Profiles:** buscá carpetas `Maps`, `Mapeos`, `Mappings`, `Profiles` → anotá el namespace
    - **Infrastructure/Data:** buscá carpetas `Infrastructure`, `Infraestructura`, `Data`, `Persistence`, `DataBase` → anotá el namespace
    
