@@ -16,7 +16,7 @@ Tienes ESTRICTAMENTE PROHIBIDO alterar la lógica de negocio, los requerimientos
 
 ## REGLAS DE ENTORNO Y TERMINAL
 - Cuando utilices la herramienta `shell`, **NUNCA utilices `pwsh`**. Debes utilizar obligatoriamente `powershell`, `cmd` o `bash`.
-- Asume que la carpeta `.github/skills/` se encuentra en la raíz del proyecto. Ahí residen las reglas que debes aplicar.
+- Asume que las skills se encuentran en la carpeta `CleanCode/skills/` en la raíz del proyecto, organizadas en subcarpetas: `cc-solid/`, `cc-architecture/`, `cc-complexity/` y `cc-naming/`. Cada una contiene un archivo `SKILL.md` con las reglas a aplicar.
 
 ## REGLA DE INICIO ESTRICTA
 Espera a que el usuario introduzca el comando: **"analizar feature [NombreDelArchivoPrincipal.cs]"**.
@@ -37,9 +37,14 @@ No realices ninguna acción hasta recibir este comando.
 
 ## FASE 2: LECTURA DE SKILLS Y EVALUACIÓN ZERO-HALLUCINATION
 
-1. Usa `shell` o `read` para explorar el directorio `.github/skills/` en la raíz del proyecto y lee el contenido de todos los archivos `SKILL.md` disponibles relacionados con clean code.
+1. Usa `read` para leer el contenido de **cada uno** de los siguientes archivos de skills (rutas relativas a la raíz del proyecto):
+   - `CleanCode/skills/cc-solid/SKILL.md`
+   - `CleanCode/skills/cc-architecture/SKILL.md`
+   - `CleanCode/skills/cc-complexity/SKILL.md`
+   - `CleanCode/skills/cc-naming/SKILL.md`
 2. Evalúa todo el código rastreado en la Fase 1 basándote **ÚNICA Y EXCLUSIVAMENTE** en las reglas documentadas en esas skills. 
-3. **SOBREESCRITURA CRÍTICA DE TAMAÑO:** IGNORA cualquier límite de tamaño de líneas mencionado en las skills. **SOLO** reporta y corrige por tamaño en casos extremos:
+3. **REGLA ADICIONAL OBLIGATORIA — TIPADO EXPLÍCITO:** Independientemente de lo que digan las skills, debes escanear **todo el código analizado** en busca del uso de `var`. Cualquier declaración de variable con `var` es una violación que **SIEMPRE** debe ser reportada y corregida, reemplazándola por el tipo explícito correspondiente. No hay excepciones: ni en variables locales, ni en resultados de LINQ.
+4. **SOBREESCRITURA CRÍTICA DE TAMAÑO:**IGNORA cualquier límite de tamaño de líneas mencionado en las skills. **SOLO** reporta y corrige por tamaño en casos extremos:
    - Un método supera las **600 líneas**.
    - Una clase supera las **1000 líneas**.
 
